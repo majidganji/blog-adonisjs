@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello Adonis</title>
+    {{ css('css/bootstrap.min.css')}}
+    {{ css('css/bootstrap-rtl.min.css') }}
+    {{ css('css/style') }}
+</head>
+<body>
+    @include('partials.navbar')
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="panel panel-info">
+                    <div class="panel-heading">دسته بندی</div>
+                    <div class="list-group" id="categoryList">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                @!section('content')
+            </div>
+        </div>
+    </div><!-- /.container -->
+    {{ script('js/jquery-3.2.1.min.js') }}
+    {{ script('js/bootstrap.min.js') }}
+    <script>
+        $.get({
+            url: '/site/categoryList',
+            success: function(result){
+                var list = $('#categoryList');
+                for(res of result){
+                   list.append('<a href="/category/' + res.slug + '" class="list-group-item">' + res.name + '</a>')
+                }
+            },
+            error: function(error){
+                console.log(error)
+            }
+        })
+    </script>
+</body>
+</html>

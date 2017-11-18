@@ -1,0 +1,30 @@
+@layout('master')
+
+@section('content')
+    <div class="col-sm-6 col-sm-offset-3">
+    	<div class="panel panel-default">
+    		<div class="panel-heading">ورود</div>
+    		<div class="panel-body">
+    			<form class="" action="/login" method="post">
+					{{ csrfField()}}
+    				<div class="form-group">
+    					<label for="username">نام کاربری</label>
+    					<input type="text" class="form-control" name="username" id="username" value="{{ old('username', '')}}">
+						{{ elIf('<div class="text-danger">$self</div>', getErrorFor('username'), hasErrorFor('username')) }}
+    				</div>
+
+    				<div class="form-group">
+    					<label for="password">رمز عبور</label>
+    					<input type="password" class="form-control" name="password" id="password">
+						{{ elIf('<div class="text-danger">$self</div>', getErrorFor('password'), hasErrorFor('password')) }}
+
+    				</div>
+
+    				<div class="form-group">
+    					<input type="submit" class="form-control btn btn-primary" name="submit" value="ورود">
+    				</div>
+    			</form>
+    		</div>
+    	</div>
+    </div>
+@endsection

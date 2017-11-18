@@ -1,0 +1,27 @@
+@layout('admin')
+@section('title')
+	 درج مطلب جدید 
+@endsection
+@section('content')
+<div class="col-sm-12">
+	<h4>ویرایش دسته بندی " {{model.name}} "</h4>
+</div>
+<div class="col-sm-12">
+	<form action="/admin/category/update/{{model.id}}" method="post" class="well">
+		{{ csrfField() }}
+		<div class="form-group">
+			<label for="name">عنوان</label>
+			<input type="text" class="form-control" name="name" id="name" value="{{ old('name', model.name)}}">
+			{{ elIf('<div class="text-danger">$self</div>', getErrorFor('name'), hasErrorFor('name')) }}
+		</div>
+		<div class="form-group">
+			<label for="slug">مسیر</label>
+			<input type="text" class="form-control" name="slug" id="slug" value="{{ old('slug', model.slug) }}">
+			{{ elIf('<div class="text-danger">$self</div>', getErrorFor('slug'), hasErrorFor('slug')) }}
+		</div>
+		<div class="form-group">
+			<input  type="submit" class="btn btn-success" value="ذخیره" > 
+		</div>
+	</form>
+</div>
+@endsection

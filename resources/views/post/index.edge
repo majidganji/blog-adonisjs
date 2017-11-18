@@ -1,0 +1,40 @@
+@layout('admin')
+@section('content')
+	<div class="col-sm-12">
+		<h4 class="col-sm-3">مدیریت مطالب</h4>
+		<div class="col-sm-9">
+			<a href="/admin/post/create" class="btn btn-success pull-left">درج مطلب</a>
+		</div>
+	</div>
+	<p>&nbsp;</p>
+    <div class="col-sm-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>عنوان</th>
+                    <th>تاریخ انتشار</th>
+                    <th>دسته بندی</th>
+                    <th>تنظیمات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @each(model in models)
+                    <tr>
+                        <td>{{ model.id}}</td>
+                        <td>{{ model.title}}</td>
+                        <td>{{ moment(model.created_at).format('HH:mm:ss jYYYY/jM/jD') }}</td>
+                        <td>{{ model.cateName }}</td>
+                        <td>
+                            <a href="/admin/post/view/{{ model.id}}" class="admin-view">مشاهده</a>
+                            &nbsp;
+                            <a href="/admin/post/edit/{{model.id}}" class="admin-edit">ویرایش</a>
+                            &nbsp;
+                            <a href="/admin/post/delete/{{model.id}}" class="admin-delete" onclick="return confirm('آیا مطمئن هستید؟')">حذف</a>
+                        </td>
+                    </tr>
+                @endeach
+            </tbody>
+        </table>
+    </div>
+@endsection

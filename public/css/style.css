@@ -1,0 +1,55 @@
+
+@font-face {
+  font-family: 'shabnam';
+  src: url('/fonts/shabnam-font/Farsi-Digits/Shabnam-FD.eot') format('eot'),  /* IE6–8 */ url('/fonts/shabnam-font/Farsi-Digits/Shabnam-FD.woff2') format('woff2'),  /* Chrome36+, Opera24+*/ url('/fonts/shabnam-font/Farsi-Digits/Shabnam-FD.woff') format('woff');  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  font-weight: normal;
+}
+
+
+body{
+  padding-top: 70px;
+  font-family: shabnam, sans-serif !important;
+  font-size: 14px !important;
+}
+
+.admin-view{
+	color: #fff;
+	background: darkcyan;
+	padding: 3px 5px;
+	font-size: 11px;
+	border-radius: 5px;
+}
+
+.admin-view:hover{
+	color: #fff;
+	text-decoration: none;
+	background: darkslategrey;
+}
+
+.admin-edit{
+	color: #fff;
+	background: springgreen;
+	padding: 3px 5px;
+	font-size: 11px;
+	border-radius: 5px;
+}
+
+.admin-edit:hover{
+	color: #fff;
+	text-decoration: none;
+	background: seagreen;
+}
+
+.admin-delete{
+	color: #fff;
+	background: salmon;
+	padding: 3px 5px;
+	font-size: 11px;
+	border-radius: 5px;
+}
+
+.admin-delete:hover{
+	color: #fff;
+	text-decoration: none;
+	background: orangered;
+}

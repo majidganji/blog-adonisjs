@@ -1,0 +1,47 @@
+@layout('admin')
+@section('title')
+	 درج مطلب جدید 
+@endsection
+@section('content')
+<div class="col-sm-12">
+	<h4>درج مطلب جدید</h4>
+</div>
+<div class="col-sm-12">
+	<form action="/admin/post/create" method="post" class="well">
+		{{ csrfField() }}
+		<div class="form-group">
+			<label for="title">عنوان</label>
+			<input type="text" class="form-control" name="title" id="title" value="{{ old('title', '')}}">
+			{{ elIf('<div class="text-danger">$self</div>', getErrorFor('title'), hasErrorFor('title')) }}
+		</div>
+		<div class="form-group">
+			<label for="slug">مسیر</label>
+			<input type="text" class="form-control" name="slug" id="slug" value="{{ old('slug', '') }}">
+			{{ elIf('<div class="text-danger">$self</div>', getErrorFor('slug'), hasErrorFor('slug')) }}
+		</div>
+
+		<div class="form-group">
+			<label for="category_id">دسته بندی</label>
+			<select type="text" class="form-control" name="category_id" id="category_id">
+				@each(category in categories)
+					<option value="{{ category.id }}">{{ category.name }}</option>
+				@endeach
+			</select>
+			{{ elIf('<div class="text-danger">$self</div>', getErrorFor('category_id'), hasErrorFor('category_id')) }}
+		</div>
+		<div class="form-group">
+			<label for="description">خلاصه متن</label>
+			<textarea type="text" class="form-control" name="description" id="description">{{ old('description', '') }}</textarea> 
+			{{ elIf('<div class="text-danger">$self</div>', getErrorFor('description'), hasErrorFor('description')) }}
+		</div>
+		<div class="form-group">
+			<label for="body">متن</label>
+			<textarea rows="8" type="text" class="form-control" name="body" id="body">{{ old("body", '') }}</textarea> 
+			{{ elIf('<div class="text-danger">$self</div>', getErrorFor('body'), hasErrorFor('body')) }}
+		</div>
+		<div class="form-group">
+			<input  type="submit" class="btn btn-success" value="ذخیره" > 
+		</div>
+	</form>
+</div>
+@endsection

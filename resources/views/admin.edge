@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>
+    @!section('title')
+  </title>
+  {{ css('css/bootstrap.min.css')}}
+  {{ css('css/bootstrap-rtl.min.css') }}
+  {{ css('css/style') }}
+</head>
+<body>
+  @include('partials.navbar')
+  <div class="container">
+    @if(hasErrorFor('success'))
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="alert alert-success">
+            <p>{{ getErrorFor('success') }}</p>
+          </div>
+        </div>
+      </div>
+    @endif
+    @if(hasErrorFor('danger'))
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="alert alert-danger">
+            <p>{{ getErrorFor('danger') }}</p>
+          </div>
+        </div>
+      </div>
+    @endif
+    <section class="row">
+      <div class="col-sm-3">
+        <div class="list-group">
+          <a class="list-group-item list-group-item-info" href="/admin">مدیریت</a>
+          <a class="list-group-item" href="/admin/post">مطالب</a>
+          <a class="list-group-item" href="/admin/category">دسته بندی</a>
+          <a class="list-group-item" href="/admin/comments">نظرات</a>
+        </div>
+      </div>
+      <div class="col-sm-9">
+        @!section('content')
+      </div>
+    </section>
+  </div><!-- /.container -->
+
+  {{ script('js/bootstrap.min.js') }}
+</body>
+</html>

@@ -1,0 +1,38 @@
+@layout('admin')
+@section('content')
+	<div class="col-sm-12">
+		<h4 class="col-sm-3">مدیریت دسته بندی</h4>
+		<div class="col-sm-9">
+			<a href="/admin/category/create" class="btn btn-success pull-left">درج دسته بندی</a>
+		</div>
+	</div>
+	<p>&nbsp;</p>
+    <div class="col-sm-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>نام</th>
+                    <th>تاریخ ایجاد</th>
+                    <th>تنظیمات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @each(model in models)
+                    <tr>
+                        <td>{{ model.id}}</td>
+                        <td>{{ model.name}}</td>
+                        <td>{{ moment(model.created_at).format('HH:mm:ss jYYYY/jM/jD') }}</td>
+                        <td>
+                            <a href="/admin/category/view/{{ model.id}}" class="admin-view">مشاهده</a>
+                            &nbsp;
+                            <a href="/admin/category/edit/{{model.id}}" class="admin-edit">ویرایش</a>
+                            &nbsp;
+                            <a href="/admin/category/delete/{{model.id}}" class="admin-delete" onclick="return confirm('آیا مطمئن هستید؟')">حذف</a>
+                        </td>
+                    </tr>
+                @endeach
+            </tbody>
+        </table>
+    </div>
+@endsection

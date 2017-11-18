@@ -1,0 +1,21 @@
+@layout('master')
+
+@section('content')
+
+	@each(model in models)
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading"><a href="/post/{{ model.slug }}">{{model.title}}</a></div>
+				<div class="panel-body">
+					{{model.description}}
+				</div>
+				<div class="panel-footer">
+					{{ moment(model.created_at).format('HH:mm:ss jYYYY/jM/jD')  }}
+					- 
+					<a href="/category/{{model.cateSlug}}">{{ model.cateName }}</a>
+				</div>
+			</div>
+		</div>
+	@endeach
+
+@endsection
