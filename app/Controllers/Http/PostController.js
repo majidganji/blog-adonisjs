@@ -6,6 +6,7 @@ const moment = use('moment-jalaali')
 moment.locale('fa')
 
 class PostController {
+    
     async index({request, view, params}){
     	const page = params.page || 1
     	const models = await Post.query().select('posts.*', 'categories.name as cateName').orderBy('posts.id', 'desc').rightJoin('categories', 'posts.category_id', 'categories.id').where('posts.id', '>' , 0)
@@ -23,16 +24,13 @@ class PostController {
     }
 
     async store({request, response, auth, session}){
-    	const {title, slug, description, body, category_id} = request.all()
-    	const post = new Post()
-    	post.title = title
-    	post.slug = slug
-    	post.body = body
-    	post.description = description
-    	post.category_id = category_id
-    	post.user_id = auth.user.id
-    	// post.created_at = new Date()
-    	// post.updated_at = new Date()
+        const post = new Post()
+        post.fill(request.only(['title', 'slug', 'description', 'body', 'category_id']))
+        post.merge({
+            user_id: auth.user.id,
+            created_at: new Date(),
+            updated_at: new Date()
+        })
     	await post.save()
     	session.withErrors({success: 'با موفقیت ذخیره شد'}).flashAll()
     	return response.redirect('/admin/post')
@@ -56,8 +54,6 @@ class PostController {
     }
 
     async update({request, response, session, params}){
-        const {title, slug, description, body, category_id} = request.all()
-
         const post = await Post.query().where('id', params.id).update(request.only(['title', 'slug', 'description', 'body', 'category_id']))
         if(post !== 1){
             session.withErrors({danger: 'مشکلی در بروزرسانی وجود دارد'}).flashAll()

@@ -4,6 +4,7 @@ const moment = use('moment-jalaali')
 
 
 class CategoryController {
+    
 	async index({view}){
 		const models = await Category.query().orderBy('id', 'desc')
 		return view.render('category.index', {
@@ -55,6 +56,10 @@ class CategoryController {
 	async store({request, response, session}){
         const category = new Category()
         category.fill(request.only(['name', 'slug']))
+        category.merge({
+            created_at : new Date(),
+            updated_at : new Date()
+        })
         if(!await category.save()){
             session.withErrors({danger: 'مشکلی در بروزرسانی وجود دارد'}).flashAll()
             return response.redirect('back')

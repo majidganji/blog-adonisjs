@@ -11,7 +11,7 @@ class PostSchema extends Schema {
       table.string('slug').notNullable().unique()
       table.integer('category_id').unsigned().references('id').inTable('categories')
       table.string('description')
-      table.string('body')
+      table.text('body', 'longtext')
       table.timestamps()
     })
   }

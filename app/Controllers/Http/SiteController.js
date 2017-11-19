@@ -14,7 +14,9 @@ class SiteController {
         let models = JSON.parse(await Redis.get('post_list'))
         if (!models) {
             models = await Post.query().select('posts.*', 'categories.name as cateName', 'categories.slug as cateSlug' ).orderBy('posts.id', 'desc').rightJoin('categories', 'posts.category_id', 'categories.id').where('posts.id', '>' , 0)
-            await Redis.set('post_list', JSON.stringify(models))
+            if (models) {
+               await Redis.set('post_list', JSON.stringify(models))
+            }
         }
         return view.render('site.index', {
             models: models,
@@ -44,10 +46,13 @@ class SiteController {
     async categoryList(){
         const cache = await Redis.get('category_list')
         if (cache) {
-            return JSON.parse(cache)
+            // return JSON.parse(cache)
         }
-        const categories =  await Category.query().select(['name', 'slug'])
-        await Redis.set('category_list', JSON.stringify(categories))
+        const categories =  await Category.query().select(['name', 'slug']).fetch()
+        console.log(categories.rows !== [])
+        if (categories) {
+            await Redis.set('category_list', JSON.stringify(categories))
+        }
         return categories
     }
 
@@ -63,13 +68,17 @@ class SiteController {
         let category = JSON.parse(await Redis.get('category' + params.slug))
         if (!category) {
             category = await Category.query().where('slug', params.slug).first()
-            await Redis.set('category' + params.slug, JSON.stringify(category))
+            if (category) {
+                await Redis.set('category' + params.slug, JSON.stringify(category))
+            }
         }
 
         let posts = JSON.parse(await Redis.get('pcategory' + params.slug))
         if (!posts) {
             posts = await Post.query().where('category_id', category.id).orderBy('id', 'desc')
-            await Redis.set('pcategory' + params.slug, JSON.stringify(posts))
+            if (posts) {
+                await Redis.set('pcategory' + params.slug, JSON.stringify(posts))
+            }
         }
 
         return view.render('site.category', {
