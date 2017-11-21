@@ -1,0 +1,34 @@
+@layout('admin')
+@section('content')
+<table class="table">
+	<tr>
+		<th>ID</th>
+		<td>{{model.id}}</td>
+	</tr>
+	<tr>
+		<th>عنوان متن</th>
+		<td><a href="/admin/post/view/{{model.post_id}}">{{model.title}}</a></td>
+	</tr>
+	<tr>
+		<th> انم</th>
+		<td>{{ model.name }}</td>
+	</tr>
+	<tr>
+		<th> ایمیل</th>
+		<td>{{ model.email }}</td>
+	</tr>
+	<tr>
+		<th> متن</th>
+		<td>{{ model.body }}</td>
+	</tr>
+	<tr>
+		<th class="col-sm-2" > تاریخ ایجاد</th>
+		<td>{{ moment(model.created_at).format('HH:mm:ss jYYYY/jM/jD')  }}</td>
+	</tr>
+	<tr>
+		<th class="col-sm-2" > تاریخ ویرایش</th>
+		<td>{{ moment(model.updated_at).format('HH:mm:ss jYYYY/jM/jD')  }}</td>
+	</tr>
+</table>
+
+@endsection

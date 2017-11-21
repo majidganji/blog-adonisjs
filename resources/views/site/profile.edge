@@ -1,0 +1,49 @@
+@layout('master')
+@section('content')
+  <div class="col-sm-12">
+    <div class="col-sm-6">
+      <div class="panel panel-info">
+        <div class="panel-heading">ویرایش مشخصات</div>
+        <div class="panel-body">
+          <form action="/updateProfile" method="post">
+            {{csrfField()}}
+            <div class="form-group">
+              <label for="username">نام کاربری</label>
+              <input type="text" class="form-control" name="username" id="username" value="{{ old('username', auth.user.username) }}"/>
+            </div>
+            <div class="form-group">
+              <label for="email">ایمیل</label>
+              <input type="email" class="form-control" name="email" id="email" value="{{ old('email', auth.user.email) }}"/>
+            </div>
+            <div class="form-group">
+              <input class="btn btn-primary" type="submit" value="ویرایش"/>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="panel panel-info">
+        <div class="panel-heading">ویرایش رمز عبور</div>
+        <div class="panel-body">
+          <form action="/updatePassword" method="post">
+            {{csrfField()}}
+            <div class="form-group">
+              <label for="password">رمز عبور جدید</label>
+              <input type="password" class="form-control" name="password" id="password" />
+              {{ elIf('<div class="text-danger">$self</div>', getErrorFor('password'), hasErrorFor('password')) }}
+            </div>
+            <div class="form-group">
+              <label for="repassword">تکرار رمز عبور جدید</label>
+              <input type="password" class="form-control" name="repassword" id="repassword"/>
+              {{ elIf('<div class="text-danger">$self</div>', getErrorFor('repassword'), hasErrorFor('repassword')) }}
+            </div>
+            <div class="form-group">
+              <input class="btn btn-primary" type="submit" value="تغییر رمز عبور"/>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+@endsection

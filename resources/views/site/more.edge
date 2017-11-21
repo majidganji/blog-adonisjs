@@ -8,9 +8,54 @@
 		</div>
 		<div class="panel-footer">
 			{{ moment(model.created_at).format('HH:mm:ss jYYYY/jM/jD')  }}
-			- 
+			-
 			<a href="/category/{{model.cateSlug}}">{{ model.cateName }}</a>
 		</div>
 	</div>
+</div>
+
+<div class="col-sm-12">
+  @each(comment in comments)
+    <div class="col-sm-12 well">
+      <div class="col-sm-3">
+        {{comment.name}} <br/> {{comment.email}}
+      </div>
+      <div class="col-sm-9">
+        {{comment.body}}
+      </div>
+    </div>
+  @endeach
+</div>
+
+<div class="col-sm-12 well well-sm">
+  <h3>ارسال نظر</h3>
+  <hr />
+  <form action="/comment/store" method="post">
+    {{csrfField()}}
+    <input type="hidden" name="post_id" value="{{model.id}}"/>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label for="name">نام و نام خانوادگی</label>
+        <input type="text" class="form-control" name="name" id="name" value="{{old('name', '')}}"/>
+        {{ elIf('<div class="text-danger">$self</div>', getErrorFor('name'), hasErrorFor('name')) }}
+      </div>
+      <div class="form-group">
+        <label for="email">پست الکترونیکی</label>
+        <input type="text" class="form-control" name="email" id="email" value="{{ old('email', '') }}"/>
+        {{ elIf('<div class="text-danger">$self</div>', getErrorFor('email'), hasErrorFor('email')) }}
+      </div>
+      <div class="form-group">
+        <input type="submit" name="" value="ارسال" class="form-control btn btn-primary"/>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="form-group">
+        <label for="body">متن</label>
+        <textarea style="resize: none;" rows="8" class="form-control" name="body" id="body">
+          {{ old('body', '') }}
+        </textarea>
+      </div>
+    </div>
+  </form>
 </div>
 @endsection

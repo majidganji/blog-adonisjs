@@ -1,0 +1,39 @@
+@layout('admin')
+@section('content')
+	<div class="col-sm-12">
+		<h4 class="col-sm-3">مدیریت نظارت</h4>
+	</div>
+	<p>&nbsp;</p>
+    <div class="col-sm-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>نام</th>
+                    <th>ایمیل</th>
+                    <th>مطلب</th>
+                    <th>تاریخ درج</th>
+                    <th>تنظیمات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @each(model in models)
+                    <tr>
+                        <td>{{ model.id}}</td>
+                        <td>{{ model.name}}</td>
+                        <td>{{ model.email}}</td>
+                        <td><a href="/admin/post/view/{{model.post_id}}">{{ model.title}}</a></td>
+                        <td>{{ moment(model.created_at).format('HH:mm:ss jYYYY/jM/jD') }}</td>
+                        <td>
+                            <a href="/admin/comment/view/{{ model.id}}" class="admin-view">مشاهده</a>
+                            <!--{{-- &nbsp;
+                            <a h ref="/admin/comment/edit/{{model.id}}" class="admin-edit">ویرایش</a>--}}-->
+                            &nbsp;
+                            <a href="/admin/comment/delete/{{model.id}}" class="admin-delete" onclick="return confirm('آیا مطمئن هستید؟')">حذف</a>
+                        </td>
+                    </tr>
+                @endeach
+            </tbody>
+        </table>
+    </div>
+@endsection

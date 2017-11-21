@@ -6,7 +6,7 @@ class post {
       title: 'required',
       slug: 'required',
       category_id: 'required|exists:categories,id',
-      description: 'required',
+      description: 'required|max:250',
       body: 'required'
     }
   }
